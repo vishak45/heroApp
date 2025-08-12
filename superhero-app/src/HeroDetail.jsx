@@ -13,7 +13,7 @@ function HeroDetail({ id }) {
         setHero(data);
         window.scrollTo(0, 0);
         // Fetch some Marvel + DC heroes randomly
-        const ids = Array.from({ length: 20 }, () => Math.floor(Math.random() * 731) + 1); // generate random hero IDs
+        const ids = Array.from({ length: 18 }, () => Math.floor(Math.random() * 731) + 1); // generate random hero IDs
 Promise.all(
   ids.map((hid) =>
     fetch(`https://www.superheroapi.com/api.php/${import.meta.env.VITE_API_KEY}/${hid}`)

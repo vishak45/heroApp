@@ -46,15 +46,22 @@ function Home() {
     }
   };
 
-  const searchHero = async (e) => {
-    e.preventDefault();
-    if (!search.trim()) return;
-    setLoading(true);
+ const searchHero = async (e) => {
+  e.preventDefault();
+  if (!search.trim()) return;
+  setLoading(true);
+  try {
     const res = await fetch(`${BASE_URL}/search/${search}`);
     const data = await res.json();
     setHeroes(data.results || []);
+  } catch (error) {
+    console.error(error);
+    setHeroes([]); // clear on error
+  } finally {
     setLoading(false);
-  };
+  }
+};
+
 
   useEffect(() => {
     fetchRandomHeroes();
