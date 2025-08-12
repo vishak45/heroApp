@@ -7,7 +7,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Logo / Brand (Links to Home) */}
         <Link
-          onClick={()=>window.location.reload()}
+          onClick={()=>window.location.href="/"}
           className="text-2xl font-extrabold tracking-wide hover:text-red-500 transition"
         >
           <span className="text-red-500">Hero</span>Dex
