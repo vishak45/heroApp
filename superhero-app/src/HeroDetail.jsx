@@ -8,12 +8,13 @@ function HeroDetail() {
   const [similarHeroes, setSimilarHeroes] = useState([]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     // Fetch the selected hero
     fetch(`https://www.superheroapi.com/api.php/${import.meta.env.VITE_API_KEY}/${id}`)
       .then(res => res.json())
       .then(data => {
         setHero(data);
-        window.scroll(0,0);
+       
         // Fetch some Marvel + DC heroes randomly
         const ids = Array.from({ length: 20 }, () => Math.floor(Math.random() * 731) + 1); // generate random hero IDs
 Promise.all(
