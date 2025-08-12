@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-function HeroDetail({ id }) {
+function HeroDetail() {
+  const  { id } = useParams();
   const [hero, setHero] = useState(null);
   const [similarHeroes, setSimilarHeroes] = useState([]);
 
@@ -11,9 +13,9 @@ function HeroDetail({ id }) {
       .then(res => res.json())
       .then(data => {
         setHero(data);
-        window.scrollTo(0, 0);
+        
         // Fetch some Marvel + DC heroes randomly
-        const ids = Array.from({ length: 18 }, () => Math.floor(Math.random() * 731) + 1); // generate random hero IDs
+        const ids = Array.from({ length: 20 }, () => Math.floor(Math.random() * 731) + 1); // generate random hero IDs
 Promise.all(
   ids.map((hid) =>
     fetch(`https://www.superheroapi.com/api.php/${import.meta.env.VITE_API_KEY}/${hid}`)
@@ -116,7 +118,7 @@ Promise.all(
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
               {similarHeroes.map(h => (
                 <Link
-                  to={`/hero/${h.id}`}
+                  onClick={()=>window.location.href=`/hero/${h.id}`}
                   key={h.id}
                   className="bg-gray-900/80 rounded-lg shadow-lg overflow-hidden hover:scale-105 hover: transition-transform duration-300"
                 >
