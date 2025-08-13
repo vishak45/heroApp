@@ -8,13 +8,13 @@ function HeroDetail() {
   const [similarHeroes, setSimilarHeroes] = useState([]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scroll(0,0);
     // Fetch the selected hero
     fetch(`https://www.superheroapi.com/api.php/${import.meta.env.VITE_API_KEY}/${id}`)
       .then(res => res.json())
       .then(data => {
         setHero(data);
-       
+        
         // Fetch some Marvel + DC heroes randomly
         const ids = Array.from({ length: 20 }, () => Math.floor(Math.random() * 731) + 1); // generate random hero IDs
 Promise.all(
@@ -82,26 +82,65 @@ Promise.all(
               {Object.entries(hero.powerstats || {}).map(([stat, value]) => (
                 <li key={stat} className="capitalize flex items-center gap-2">
                   <span className="w-24 font-bold">{stat}:</span>
-                  <div className="flex-1 bg-gray-700 h-4 rounded-full overflow-hidden">
+                  {
+                    value === "null" ? (
+                      <span className="text-red-500 font-bold">N/A</span>
+                    ) : (
+                      <>
+                      <div className="flex-1 bg-gray-700 h-4 rounded-full overflow-hidden">
                     <div
                       className="bg-yellow-500 h-full transition-all duration-1000"
                       style={{ width: `${value}%` }}
                     ></div>
                   </div>
                   <span>{value}</span>
+                      </>
+                    )
+                  }
                 </li>
               ))}
             </ul>
 
             {/* Appearance */}
             <h2 className="mt-6 text-2xl font-semibold text-blue-400">Appearance</h2>
-            <ul className="mt-2 space-y-1 text-gray-200">
-              {Object.entries(hero.appearance || {}).map(([k, v]) => (
-                <li key={k} className="capitalize">
-                  {k}: {Array.isArray(v) ? v.join(", ") : v}
-                </li>
-              ))}
-            </ul>
+           <ul className="mt-2 space-y-1 text-gray-200">
+  {Object.entries(hero.appearance || {}).map(([k, v]) => {
+   function formatValue(val) {
+  const invalidValues = ["-", "null", "- lb", "0 cm", "0 kg", ""];
+
+  if (Array.isArray(val)) {
+    // Remove invalids
+    const filtered = val.filter(
+      (item) =>
+        item &&
+        !invalidValues.includes(item.toLowerCase())
+    );
+
+    // If nothing valid remains → N/A
+    return filtered.length ? filtered.join(", ") : "N/A";
+  }
+
+  // Non-array value
+  if (
+    val == null ||
+    invalidValues.includes(val.toLowerCase?.() || val)
+  ) {
+    return "N/A";
+  }
+
+  return val;
+}
+
+    const value = formatValue(v);
+
+    return (
+      <li key={k} className="capitalize">
+        {k}: {value}
+      </li>
+    );
+  })}
+</ul>
+
 
             {/* Work */}
             <h2 className="mt-6 text-2xl font-semibold text-blue-400">Work</h2>
