@@ -16,3 +16,5 @@ With HeroDex, you can:
 Your hero journey starts here — open HeroDex and unleash your inner fan!
 
 Do you want me to also make that “new feature” tease sound more mysterious and hype-building, so people feel excited and curious?
+
+URL: https://herodex.onrender.com/
