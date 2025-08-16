@@ -15,4 +15,4 @@ With HeroDex, you can:
 
 Your hero journey starts here — open HeroDex and unleash your inner fan!
 
-URL: https://herodex.onrender.com/
+
